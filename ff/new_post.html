@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="app.css">
+  <link rel="stylesheet" type="text/css" href="w3.css">
+</head>
+<body>
+  <div class="navigation">
+    <ol>
+      <li class="e ss">chats</li>
+       <li class="e po">posts</li>
+        <li class="e new">newpost</li>
+         <li class="e dd">statsu</li>
+          <li class="e cr">new status</li>
+           <li></li>
+    </ol>
+  </div>
+<div class="friend"> 
+    <div class='posts merge'>
+        <div>
+        <div class="contact bar">
+          <div class="pic stark"></div>
+          <div class="name" id="chatto">
+            Tony Stark 
+          </div>
+
+        </div> 
+        <br><br>
+        <input id="input" class="post_input" type="text" name="" placeholder="whats on ur mind">
+        <br><br>
+        <div class='post_image' id="post_image">
+          <p class="fun">click to attach images</p>
+          <br>
+          <div class="w3-btn-floating-large " id="file"><i>+</i></div>
+        </div>
+        <br>
+        <br><br>
+        <div class="save">
+        <button class="sav" id="save">post</button>
+      </div>
+    </div>
+</div>
+</div>
+
+   <input type="file" name="l" id="ll" style="display: none">
+<img src="" id="im">
+</body>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="new.js"></script>
+<script type="text/javascript">
+
+  var user=location.hash.replace('#','')
+
+  window['image']=null
+  function el(id){return document.getElementById(id);}
+  
+  var socket=io()
+var res=[2,2,2,2,2,2,2,2]
+  
+  document.getElementById('file').onclick=()=>{
+    document.getElementById('ll').click()
+  }
+  function readImage() {
+    el('post_image').innerHTML='<img src="" class="post_image" id="img">'
+    if ( this.files && this.files[0] ) {
+        var FR= new FileReader();
+        FR.onload = function(e) {
+             el("img").src = e.target.result;
+             window['image']= e.target.result;
+        };       
+        FR.readAsDataURL( this.files[0] );
+    }
+}
+el("ll").addEventListener("change", readImage, false);
+el('save').onclick=()=>{
+  if(el('input').value!='' && image!=null){
+    var l=image.length;
+let a=Math.floor(l/6)
+    socket.emit('new_post',{
+      image,
+              post:el('input').value,
+              comments:0,
+              likes:0
+            })
+    }
+    var xmlhttp=new XMLHttpRequest()
+  xmlhttp.open('POST',`/api/post_image?image=${image}`,true)
+  xmlhttp.send()
+  }
+  
+</script>
+</html>
+
+<!-- //str.slice(0,Math.floor(str.length/4))
+//str.slice(Math.floor(str.length/4),Math.floor(str.length/2))
+//str.slice(Math.floor(str.length/2),Math.floor(str.length)) -->

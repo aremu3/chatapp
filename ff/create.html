@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="app.css">
+  <style type="text/css">
+    .zero{
+      margin: -10px
+    }
+  	.statustext{
+  	  width: 23.6rem;
+  	  color: white;
+      height: 36rem; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0.5rem 1rem;
+	  margin: 1rem;
+	  background: blue;
+	  border-radius: 1.125rem 1.125rem 1.125rem 0;
+	  min-height: 2.25rem;
+	 /* width: -webkit-fit-content;
+	  width: -moz-fit-content;
+	  width: fit-content;*/
+	  max-width: 90%;
+	  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+overflow: auto
+
+  	}
+  	#event{
+  		font-size: 65px;
+  		line-height: 1;
+  	}
+  </style>
+</head>
+<body>
+   <div class="navigation zero">
+    <ol>
+      <li class="e ss">chats</li>
+       <li class="e">posts</li>
+        <li class="e">newpost</li>
+         <li class="e dd">statsu</li>
+          <li class="e">new status</li>
+           <li></li>
+    </ol>
+  </div>
+<div class="down">
+	<div class="chat">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark
+      </div>
+      <div class="seen">
+        Today at 12:56
+      </div>
+    </div>
+    <div class="statustext" title="doubleclick to change this theme" id="statustext">
+    	<p id="event"></p>
+    	
+    </div>
+    
+   <div class="hellos">
+    <form id="send">
+      <div class="input">
+      <i class="fas fa-camera"></i><i class="far fa-laugh-beam"></i><input placeholder="Type your status here!" id='status' type="text" name="ff" /><i class="fas fa-microphone"></i><input type="submit" name="f" value="send">
+    </div>
+    </form>
+</div>
+    </div>
+</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="colorsArray.js"></script>
+<script type="text/javascript">
+	var user=location.hash.replace('#','')
+	function _(el){
+		return document.getElementById(el)
+	}
+  window['current_color']='blue'
+	window.addEventListener('keydown',e=>{
+          var p=document.getElementById('event');
+          if(e.key.length==1){
+          	 p.innerHTML+=e.key
+          	 console.log(p.innerHTML.length)
+          	 if(p.innerHTML.length>50){
+          	 	
+          	 	p.style.fontSize='40px'
+          	 }
+          	 if(p.innerHTML.length>100){
+          	 	
+          	 	p.style.fontSize='30px'
+          	 }
+          }else if(e.key=='Backspace'){
+          	var inner=p.innerHTML
+                p.innerHTML=inner.slice(0,inner.length-1)
+          }
+         
+	})
+
+	function returnColor(index,color){
+		var id=Math.floor(Math.random()*index)
+		return color[id]
+	}
+	var p=document.getElementById('statustext');
+	p.addEventListener('dblclick',(e)=>{
+		var col=returnColor(colors.length,colors)
+		p.style.backgroundColor=col
+		window['current_color']=col
+	})
+_('send').addEventListener('submit',e=>{
+    e.preventDefault()
+    socket.emit('status',{
+    	text:_('event').innerHTML,
+    	color:current_color,
+    	user,
+      time:`${new Date().getHours()}:${new Date().getMinutes()}pm`
+    })
+})
+</script>
+</body>
+</html>

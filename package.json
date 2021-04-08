@@ -1,0 +1,22 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "messanger app",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "build": "nexe"
+  },
+  "repository": {
+    "type": "git",
+    "url": "sss"
+  },
+  "keywords": [
+    "app"
+  ],
+  "author": "aremu mahmud",
+  "license": "ISC",
+  "dependencies": {
+    "nexe": "^4.0.0-beta.17"
+  }
+}

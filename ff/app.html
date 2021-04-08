@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="app.css">
+  <link rel="stylesheet" type="text/css" href="w3.css">
+</head>
+<body>
+  <div class="navigation">
+    <ol>
+      <li class="e ss">chats</li>
+       <li class="e po">posts</li>
+        <li class="e new">newpost</li>
+         <li class="e dd">statsu</li>
+          <li class="e cr">new status</li>
+           <li></li>
+    </ol>
+  </div>
+
+<div class="down"  id="first" style="display: none">
+  <!-- <div class="contacts" id="contacts">
+    <i class="fas fa-bars fa-2x"></i>
+    <h2>
+      Contacts
+    </h2>
+    
+  </div>  -->
+  <div class="chat">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark
+      </div>
+      <div class="seen">
+        Today at 12:56
+      </div>
+    </div>
+    <div class="messages" id="chat">
+      <div class="time">
+        Today at 11:41
+      </div>
+      <div id="hello">
+        <!-- <div class="loader"></div> -->
+       
+    </div>
+    <form id="send-container">
+      <div class="input">
+      <i class="fas fa-camera"></i><i class="far fa-laugh-beam"></i><input placeholder="Type your message here!" id='message-input' type="text" name="ff" /><i class="fas fa-microphone"></i><input type="submit" name="f" value="send">
+    </div>
+    </form>
+    
+  </div>
+</div>
+</div>
+<!--     -->
+<div id="second">
+<div class="friend" >
+
+<!-- <input type="test" class="input"><button class="input">search</button> -->
+</div>
+
+<div class="friend" >
+<div class='chat merge' id="contacts">
+  
+</div>
+<div id="grouper" class="w3-btn-floating-large w3-teal group"><i>+</i></div>
+<div class='chat merge' id="conacts">
+<h1>no users yet</h1>
+ <div class="contact shapes" id="min" >
+      <div class="name righter">
+        aremu_mahmud  <input type="checkbox" name="" class="lefter">
+      </div>
+    </div> <div class="contact shapes" id="min" >
+      <div class="name righter">
+        aremu_mahmud  <input type="checkbox" name="" class="lefter">
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+  
+    <div id="nav" style="display: none">
+     <div class="contact shapes" id="min" style="height:120px">
+      <div class="name left" >
+        <p style="text-align: left;font-weight: bolder;">Name of group</p><br>
+        <input type="text" id="inp" name="" style="margin-left: -48px;background: gray" class="input">
+      </div>
+      <br>
+      <br>
+      <br>
+    
+    </div>
+    <div id="groups"></div>
+     <br>
+     <button class="input" style="margin-left: 90px" id="submit">create group</button>
+   <!--  <div class="clos" id="clos">x</div> -->
+  
+</div>
+
+<!-- <div class=" next leftsi">&#8668;</div>
+<div class="next rightsi">&#8669;</div> -->
+</body>
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="script.js"></script>
+
+<script type="text/javascript">
+  window.onload=()=>{
+    function fetchfriends(){
+  new $('groups').el.innerHTML=''
+         fetch(`/api/friends?user=${user}`).then(res=>{
+   return res.json()
+ }).then(r=>{
+  var results=r
+   if(results.error){
+      alert('err')
+    }else{
+      last()
+      for (var i = 0; i < r.length; i++) {
+
+
+        new $('groups').el.innerHTML+=`
+ <div class="contact shapes" id="min" >
+      <div class="name righter">
+        ${r[i].friends}  <input type="checkbox" class='check' name=${r[i].friends} class="lefter">
+      </div>
+    </div>
+        `
+       
+      }
+    }
+ })
+}
+ document.getElementById('grouper').onclick=()=>{
+  console.log('l')
+   new $('nav').el.style.display='block'
+  new $('second').el.style.display='none'
+  fetchfriends()
+}
+
+function getAllMembers(){
+  new $('submit').el.onclick=()=>{
+    var arr=[]
+    var el=document.getElementsByClassName('check')
+    for(var i=0;i<el.length;i++){
+      if(el[i].checked){
+        arr.push(el[i].getAttribute('name'))
+      }
+    }
+    if(new $('inp').val()!=''){
+      arr.push(user)
+       socket.emit('new_group',{users:arr,groupname:new $('inp').val()})
+    console.log({users:arr,groupname:new $('inp').val()})
+    var el=new $('next lefts').class(0).onclick=()=>{
+  new $('nav').el.style.display='none'
+  new $('second').el.style.display='block'
+}
+  }else{
+    console.warn('error')
+   
+  }
+  }
+}
+getAllMembers()
+}
+</script>
+</html>

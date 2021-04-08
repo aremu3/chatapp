@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+	</title>
+	<style type="text/css">
+			body{
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#message-container{
+				width: 65%;
+				/*max-width: 1200px;*/
+				background-color: black;
+				height: 600px;
+				border-radius: 24px;
+				overflow: auto;
+
+			}
+			#messagers{
+				width: 15%;
+				/*max-width: 1200px;*/
+				background-color: black;
+				height: 600px;
+				border-radius: 24px;
+				position: absolute;
+				left: 610px;
+				top: 0;
+color:grey;
+text-align: center
+			}
+			#messages{
+				margin:20px;
+				background-color: blue;
+				border-radius: 24px;
+				padding: 5px;
+				width: 100px;
+				color: white;
+				text-align: center;
+
+			}
+			#messages-user{
+				margin:20px;
+				background-color: grey;
+				border-radius: 24px;
+				padding: 5px;
+				width: 100px;
+				color: white;
+				text-align: center;
+				margin-left: 170px;
+
+			}
+			
+			#send-container{
+				/*position: absolute;
+				top: 550px;
+				left: 390px;*/
+				border-radius: 24px;
+				background-color: black
+				;padding: 20px;
+				width: 55%;
+				margin-top: 10px;
+			}
+			#message-input{
+				height: 30px;
+				border-radius: 24px;
+				outline: none;
+				border: none;
+				overflow:hidden;
+				text-align: center;
+			}
+			#submit-button{
+				height: 35px;
+				border-radius: 24px;
+				outline: none;
+				border: none;
+			}
+			#tog{
+				
+				width: 750px;
+			}
+		</style>
+</head>
+<body>
+	<div id="tog">
+	<div id='message-container'></div>
+	<form id='send-container'>
+		<textarea id='message-input' type="text" name="pin"></textarea> 
+		<button type="submit" id="submit-button" style="font-weight: bolder;">send&rArr;</button>
+		
+	</form>
+	</div>
+<div id='messagers'>
+	<div><h2>Users</h2></div>
+</div>
+</body>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/script.js"></script>
+</html>

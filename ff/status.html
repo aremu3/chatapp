@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+  <link rel="stylesheet" type="text/css" href="app.css">
+	<style type="text/css">
+		.status {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24rem;
+  height: 38rem;
+  z-index: 2;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+}
+.statustext{
+      width: 23.6rem;
+      color: white;
+      height: 36rem; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0.5rem 1rem;
+    margin: 1rem;
+    background: blue;
+    border-radius: 1.125rem 1.125rem 1.125rem 0;
+    min-height: 2.25rem;
+   /* width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;*/
+    max-width: 90%;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+overflow: auto
+
+    }
+    #event{
+      font-size: 65px;
+      line-height: 1;
+    }
+    
+body, html {
+  font-family: Red hat Display, sans-serif;
+  font-weight: 400;
+  line-height: 1.25em;
+  letter-spacing: 0.025em;
+  color: #333;
+  /*background: #F7F7F7;*/
+  background: gray;
+  /*display: flex;
+  justify-content: center;
+  align-items: center;*/
+  /*float: left;*/
+}
+.lefte{
+  left: 25%
+}
+	</style>
+
+</head>
+<body>
+ <div class="navigation">
+    <ol>
+      <li class="e ss">chats</li>
+       <li class="e po">posts</li>
+        <li class="e new">newpost</li>
+         <li class="e dd">statsu</li>
+          <li class="e cr">new status</li>
+           <li></li>
+    </ol>
+  </div>
+    <div class="status merge lefte" id="mine" >
+       <div class="contact shapes" id="min" >
+      <div class="pic rogers"></div>
+      <div class="name left">
+        My status
+      </div>
+    </div>
+    <p style="text-align: center;word-spacing: 2px">Veiw other peoples status</p>
+    <div id='m'></div>
+   
+       <!-- <div class="contact shapes">
+      <div class="pic rogers"></div>
+      <div class="name left">
+        Aremu
+      </div>
+    </div>
+   
+       <div class="contact shapes">
+      <div class="pic rogers"></div>
+      <div class="name left">
+        Victor
+      </div>
+    </div>
+    
+       <div class="contact shapes">
+      <div class="pic rogers"></div>
+      <div class="name left">
+        Mariam
+      </div>
+    </div>
+     <div class="contact shapes">
+      <div class="pic rogers"></div>
+      <div class="name left">
+        Mariam
+      </div>
+    </div>
+     <div class="contact shapes">
+      <div class="pic rogers"></div>
+      <div class="name left">
+        Mariam
+      </div>
+    </div> -->
+    </div>
+    <div class="center" id="cent" style="display: none;">
+  <div class="chat">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark
+      </div>
+      <div class="seen">
+        Today at 12:56
+      </div>
+    </div>
+    <div class="statustext" title="doubleclick to change this theme" id="statustext">
+      <p id="event"></p>
+      
+    </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="new.js"></script>
+<script type="text/javascript">
+ 
+  var user=location.hash.replace('#','')
+function _(el){
+    return document.getElementById(el)
+  }
+  _('min').onclick=()=>{ 
+    var cur=0;
+     _('mine').style.display='none'
+            _('cent').style.display='block'
+      fetch(`/api/status/?user=${user}`).then(res=>{
+      return res.json()
+    }).then(res=>{
+      if(res.resolve=='error'||res.resolve=='empty'){
+        return
+      }else{
+        var st=setInterval(()=>{
+          if(cur==res.resolve.length){
+            clearInterval(st)
+            _('mine').style.display='block'
+            _('cent').style.display='none'
+
+          }else{
+            if(res.resolve[cur].status.length>50){
+              _('event').style.fontSize='40px'
+            }else if(res.resolve[cur].status.length>150){
+              _('event').style.fontSize='30px'
+            }
+            _('event').innerHTML=res.resolve[cur].status
+            _('chatto').innerHTML=res.resolve[cur].user
+            _('statustext').style.backgroundColor=res.resolve[cur].color
+            cur++
+          }
+        },1000)
+      }
+    })
+  }
+ function fetchFriends(){
+ 
+         fetch(`/api/friends?user=${user}`).then(res=>{
+   return res.json()
+ }).then(r=>{
+  var results=r
+   if(results.length==0){
+     return
+    }else{
+      
+      for (var i = 0; i < r.length; i++) {
+
+
+        _('m').innerHTML+=`
+<div class="contact shape other" id=${r[i].friends}>
+      <div class="pic rogers"></div>
+      <div class="name left" id=${r[i].friends}>
+        ${ r[i].friends} status
+      </div>
+    </div>
+        `
+       
+      }
+    }
+ })
+}
+fetchFriends()
+window.onclick=e=>{
+  if(e.target.getAttribute('class')=='contact shape other'){
+    var id= e.target.getAttribute('id')
+     var cur=0;
+     _('mine').style.display='none'
+            _('cent').style.display='block'
+      fetch(`/api/status/?user=${id}`).then(res=>{
+      return res.json()
+    }).then(res=>{
+      if(res.resolve=='error'||res.resolve=='empty'){
+        _('statustext').style.backgroundColor='white'
+        _('event').innerHTML='No Status'
+        _('event').style.color='black'
+        setTimeout(()=>{
+            _('mine').style.display='block'
+            _('cent').style.display='none'
+            _('event').innerHTML=''
+            _('statustext').style.backgroundColor='white'
+        },2000)
+      }else{
+         _('event').style.color='white'
+        var st=setInterval(()=>{
+          if(cur==res.resolve.length){
+            clearInterval(st)
+            _('mine').style.display='block'
+            _('cent').style.display='none'
+
+
+          }else{
+            if(res.resolve[cur].status.length>50){
+              _('event').style.fontSize='40px'
+            }else if(res.resolve[cur].status.length>150){
+              _('event').style.fontSize='30px'
+            }
+            _('event').innerHTML=res.resolve[cur].status
+            _('chatto').innerHTML=res.resolve[cur].user
+            _('statustext').style.backgroundColor=res.resolve[cur].color
+            cur++
+          }
+        },1000)
+      }
+    })
+  }
+}
+</script>
+</html>

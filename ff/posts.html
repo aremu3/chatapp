@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="app.css">
+  <link rel="stylesheet" type="text/css" href="w3.css">
+</head>
+<body>
+  <div class="navigation">
+    <ol>
+      <li class="e ss">chats</li>
+       <li class="e po">posts</li>
+        <li class="e new">newpost</li>
+         <li class="e dd">statsu</li>
+          <li class="e cr">new status</li>
+           <li></li>
+    </ol>
+  </div>
+<div class="friend"> 
+<div class='posts merge'>
+
+    <div class="post">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark posted at 33:9pm
+      </div>
+
+    </div> 
+    <br>
+    <p style="margin-left: 10px;">Having fun guys</p>
+    <div class="img_cont">
+      <img class="post_img" src="chat.jpg" />
+    </div>
+    <div class="social_links">
+      <ol>
+        <li class="link">like</li>
+      <li class="link">comment</li>
+      <li class="link">react</li>
+      </ol>
+      
+    </div>
+    </div>
+    <br>
+    <div class="post">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark posted at 33:9pm
+      </div>
+
+    </div> 
+    <br>
+    <p style="margin-left: 10px;">Having fun guys</p>
+    <div class="img_cont">
+      <img class="post_img" src="chat.jpg" />
+    </div>
+    <div class="social_links">
+      <ol>
+        <li class="link">like 0</li>
+      <li class="link">comment 0</li>
+      <li class="link">react 0</li>
+      </ol>
+      
+    </div>
+    </div>
+    <br>
+    <div class="post">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark posted at 33:9pm
+      </div>
+
+    </div> 
+    <br>
+    <p style="margin-left: 10px;">Having fun guys</p>
+    <div class="img_cont">
+      <img class="post_img" src="chat.jpg" />
+    </div>
+    <div class="social_links">
+      <ol>
+        <li class="link">like</li>
+      <li class="link">comment</li>
+      <li class="link">react</li>
+      </ol>
+      
+    </div>
+    </div>
+    <br>
+ 
+</div>
+</div>
+
+  
+</div>
+<img id="imgss">
+</body>
+<script type="text/javascript" src="new.js"></script>
+<script type="text/javascript">
+  var user=location.hash.replace('#','')
+  fetch('/api/post_image?post=post-1').then(res=>{
+     console.log(res)
+      return res.text()
+    }).then(res=>{
+      console.log(res)
+      document.getElementById('imgss').src=res
+
+    })
+  window.onload=()=>{
+
+   ` <div class="post">
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name" id="chatto">
+        Tony Stark posted at 33:9pm
+      </div>
+
+    </div> 
+    <br>
+    <p style="margin-left: 10px;">Having fun guys</p>
+    <div class="img_cont">
+      <img class="post_img" src="chat.jpg" />
+    </div>
+    <div class="social_links">
+      <ol>
+        <li class="link">like</li>
+      <li class="link">comment</li>
+      <li class="link">react</li>
+      </ol>
+      
+    </div>
+    </div>
+    <br>`
+  }
+</script>
+
+</html>
