@@ -7,6 +7,9 @@
     "test": "node app.js",
     "build": "nexe"
   },
+  "engines":{
+    "node":"14.x"
+  },
   "repository": {
     "type": "git",
     "url": "sss"
