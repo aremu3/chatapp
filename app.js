@@ -17,7 +17,7 @@ var U='hi484j';
 var P='7(*&J;%';
 var group_id=G+R+O+U+P
 // app.use(express.static(path.join(__dirname,'ff')))
-app.use(express.static(path.join(__dirname,'ff')))
+app.use(express.static(path.join(__dirname,'build')))
 app.post('/api/new_post',function(req,res){
 	fs.writeFileSync('./uploads/app.txt',image)
 });
